@@ -1,0 +1,2 @@
+<%@ page contentType="application/json" isErrorPage="true" import="ar.com.rjgodoy.commons.struts.config.AjaxMessageWriter" trimDirectiveWhitespaces="true"%>
+<% AjaxMessageWriter.writeErrors(pageContext); %>
