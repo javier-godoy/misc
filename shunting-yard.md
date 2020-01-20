@@ -1,6 +1,6 @@
 #### Extension to the Shunting Yard algorithm to allow variable numbers of arguments to functions
 ---
-Copyright Robin Sheat (2008) as CC BY-SA 3.0 NZ 
+Copyright Robin Sheat (2008) as CC BY-SA 3.0 NZ [(source)](https://blog.kallisti.net.nz/2008/02/extension-to-the-shunting-yard-algorithm-to-allow-variable-numbers-of-arguments-to-functions/)
 
 The standard shunting yard algorithm can handle functions, but with the restriction that the number of arguments to them is known (really, this is a limitation of the RPN algorithm, but it’s at this point in the process that we need to deal with the problem). In this case, I wanted to handle functions with a variable number of arguments, so `max(1,2)` would work, and so would `max(1,2,3,4,5)`. To do this, I extended the standard algorithm. 
 
