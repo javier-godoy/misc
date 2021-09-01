@@ -19,7 +19,7 @@ public static class VaadinUtils {
 
 	public static <T> T __(T t, Consumer<T> consumer) {
 		consumer.accept(t);
-		return t;
+		return t;	
 	}
 
 	/**
@@ -82,7 +82,8 @@ public static class VaadinUtils {
 		}
 
 		public <E extends HasElement> E set(E e, boolean set) {
-			return set ? add(e) : remove(e);
+			e.getElement().getClassList().set(className, set);
+			return e;
 		}
 
 		public <E extends HasElement> E remove(E e) {
