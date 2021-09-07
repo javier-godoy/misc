@@ -92,4 +92,17 @@ public static class VaadinUtils {
 		}
 	}
 
+	// https://cookbook.vaadin.com/ui-eventbus
+	public static <T extends ComponentEvent<?>> void addUIListener(Component component, Class<T> eventType,
+			ComponentEventListener<T> listener) {
+		component.addAttachListener(ev -> {
+			Registration registration = ComponentUtil.addListener(ev.getUI(), eventType, listener);
+			component.addDetachListener(event -> registration.remove());
+		});
+	}
+
+	public static void fireUIEvent(ComponentEvent<?> event) {
+		UI ui = event.getSource().getUI().get();
+		ComponentUtil.fireEvent(ui, event);
+	}
 }
