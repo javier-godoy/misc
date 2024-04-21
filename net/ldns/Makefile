@@ -1,6 +1,6 @@
 CC_FLAGS = -g -O2 -Os -Wfatal-errors
 
-LDNS_ARGS = -DHAVE_ARPA_INET_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_UDP_H -I/usr/include/ldns
+LDNS_ARGS = -I/usr/include/ldns
 
 all: main
 
@@ -9,5 +9,9 @@ main: dns_server.o
 clean:
 	rm -f *.o
 
-dns_server.o: dns_server.c dns_server.h
+dns_server.o: dns_server.c 
 	gcc $(CC_FLAGS) $(LDNS_ARGS) -c dns_server.c 
+
+main: dns_server.o
+	gcc dns_server.o -L/usr/lib -lldns
+
