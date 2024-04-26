@@ -310,7 +310,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if (strcmp(opts.command, "request")==0) {
+	if (strcmp(opts.command, "release")==0) {
 		if (opts.addr!=0 && opts.name!=nullptr) {
 			fprintf(stderr,"Use either --name or --addr\n");
 			return 1;
