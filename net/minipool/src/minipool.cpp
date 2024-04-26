@@ -28,8 +28,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 #include <getopt.h>
 using namespace std;
 
-#define MAX_NAME_LEN 96
-#define RECORD_LEN (32+MAX_NAME_LEN)
+#define MAX_NAME_LEN 124
+#define RECORD_LEN (4+MAX_NAME_LEN)
 
 string ntoa(int in_addr) {
 	unsigned char *b = (unsigned char *) &in_addr;
