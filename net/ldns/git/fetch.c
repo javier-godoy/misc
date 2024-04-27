@@ -1,3 +1,27 @@
+/*
+	Copyright (C) ?-2024 the libgit2 contributors 
+	Copyright (C) 2024 Roberto Javier Godoy
+	(see the fetch.authors file for details)
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License version 2.0 as
+	published by the Free Software Foundation.
+	
+	In addition to the permissions in the GNU General Public License,
+	the authors give you unlimited permission to link the compiled
+	version of this file into combinations with other programs,
+	and to distribute those combinations without any restriction
+	coming from the use of this file.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 #include "common.h"
 #include <stdio.h>
 
