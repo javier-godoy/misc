@@ -1,2 +1,2 @@
 # misc
-Miscelaneous classes released under FOSS licenses
+Miscelaneous stuff released under open source licenses
