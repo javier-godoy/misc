@@ -15,4 +15,4 @@ This project is specifically designed for a particular purpose and is a casual e
 
 Copyright (C) 2020, 2024 Roberto Javier Godoy
 
-This program is distributed under a restricted open source license. Without limiting other conditions in the license, the grant of rights under the license does not include, and the license does not grant to you, right to sell the software or offer services related to the software to third parties in exchange for a fee. For license terms, see [LICENSE](LICENSE).
+This program is distributed under a conditioned source-available license. The grant of rights under the license does not include, and the license does not grant to you, right to sell the software or offer services related to the software to third parties in exchange for a fee. For license terms, see [LICENSE](LICENSE).
