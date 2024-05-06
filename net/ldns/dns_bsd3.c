@@ -1,8 +1,7 @@
 /*
- * (c) NLnet Labs, 2005
+ * (c) NLnet Labs, 2005, 2006
  * (c) Roberto Javier Godoy, 2020, 2024
  *
- * Copyright (c) 2005,2006, NLnetLabs
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
