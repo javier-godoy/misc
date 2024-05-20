@@ -6,7 +6,7 @@ main: minipool.o
 	g++ minipool.o -o minipool-dynamic
 	g++ minipool.o -o minipool-static -static
 	
-minipool.o: minipool.cpp minipool.h
+minipool.o: minipool.cpp
 	g++ $(CC_FLAGS) -c minipool.cpp
 
 clean:
