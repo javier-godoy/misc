@@ -254,8 +254,8 @@ struct main_options {
 	uint32_t addr;
 };
 
-int main(int argc, char **argv) {
-	
+int run(int argc, char **argv) {
+
 	main_options opts = {0};
         opts.command = "";
 	opts.file = "pool";
@@ -369,6 +369,15 @@ int main(int argc, char **argv) {
              << argv[0]<<" print --file <file>"<<endl;
 
 	return 1;
+}
+
+int main(int argc, char **argv) {
+	try {
+		return run(argc, argv);
+	} catch (const exception &e) {
+		cerr << e.what() << endl;
+		return 1;
+	}
 }
 
 
