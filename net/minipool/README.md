@@ -4,7 +4,7 @@ Manages a small pool of IPv4 allocations.
 
 ```
 request --begin <address> --end <address> --name <name> --file <file>
-request --addr <address> --file <file>
+request --addr <address> --name <name> --file <file>
 release --name <name> [--begin <address>] [--end <address>] --file <file>
 release --addr <address> [--begin <address>] [--end <address>] --file <file>
 get --name <name> --file <file>
