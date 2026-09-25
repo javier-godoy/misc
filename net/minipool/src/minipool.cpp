@@ -67,7 +67,12 @@ uint32_t aton( const string& ipv4Str )
 			}
 		}
 	}
-	
+
+	char trailing;
+	if ( iss >> trailing ) {
+		throw runtime_error("Invalid IP address - Trailing characters");
+	}
+
 	return ipv4;
 }
 ///end of third party code
