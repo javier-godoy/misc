@@ -308,7 +308,11 @@ int main(int argc, char **argv) {
 	
 
 	if (strcmp(opts.command, "request")==0) {
-		if (opts.name && !opts.addr && opts.begin && opts.end) {
+		if (!opts.name) {
+			fprintf(stderr,"Missing --name\n");
+			return 1;
+		}
+		if (!opts.addr && opts.begin && opts.end) {
 			cout << pool_request(opts.file,opts.begin,opts.end,opts.name) << endl;
 			return 0;
 		} else {
@@ -354,7 +358,7 @@ int main(int argc, char **argv) {
 
 	cout << "Usage:"<< endl
              << argv[0]<<" request --begin <address> --end <address> --name <name> --file <file>"<<endl
-             << argv[0]<<" request --addr <address> --file <file>"<<endl
+             << argv[0]<<" request --addr <address> --name <name> --file <file>"<<endl
              << argv[0]<<" release --name <name> [--begin <address>] [--end <address>] --file <file>"<<endl
              << argv[0]<<" release --addr <address> [--begin <address>] [--end <address>] --file <file>"<<endl
              << argv[0]<<" get --name <name> --file <file>"<<endl
