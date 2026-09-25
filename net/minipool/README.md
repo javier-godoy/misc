@@ -4,11 +4,11 @@ Manages a small pool of IPv4 allocations.
 
 ```
 request --begin <address> --end <address> --name <name> --file <file>
-request --address <address> --file <file>
+request --addr <address> --file <file>
 release --name <name> [--begin <address>] [--end <address>] --file <file>
-release --address <address> [--begin <address>] [--end <address>] --file <file>
+release --addr <address> [--begin <address>] [--end <address>] --file <file>
 get --name <name> --file <file>
-get --address <address> --file <file>
+get --addr <address> --file <file>
 print --file <file>
 ```
 
