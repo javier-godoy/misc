@@ -315,10 +315,13 @@ int main(int argc, char **argv) {
 		if (!opts.addr && opts.begin && opts.end) {
 			cout << pool_request(opts.file,opts.begin,opts.end,opts.name) << endl;
 			return 0;
-		} else {
+		}
+		if (opts.addr && !opts.begin && !opts.end) {
 			cout << pool_request(opts.file,opts.name,opts.addr) << endl;
 			return 0;
 		}
+		fprintf(stderr,"Use either --addr or --begin and --end\n");
+		return 1;
 	}
 
 	if (strcmp(opts.command, "release")==0) {
