@@ -26,6 +26,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 #include <tuple>
 #include <vector>
 #include <getopt.h>
+#include <fcntl.h>
+#include <sys/file.h>
 using namespace std;
 
 #define MAX_NAME_LEN 124
@@ -81,6 +83,13 @@ void pool_open(string filename, fstream &file) {
 	if (!file.is_open()) {
 		throw runtime_error( "Error opening " + filename);		
 	}	
+}
+
+void pool_lock(string filename, bool exclusive) {
+	int fd = open(filename.c_str(), O_RDWR|O_CREAT, 0644);
+	if (fd<0 || flock(fd, exclusive?LOCK_EX:LOCK_SH)) {
+		throw runtime_error( "Error locking " + filename);
+	}
 }
 
 size_t pool_size(fstream &file) {
@@ -306,6 +315,12 @@ int run(int argc, char **argv) {
 		}
 	}
 	
+
+	bool writes = strcmp(opts.command, "request")==0 || strcmp(opts.command, "release")==0;
+	bool reads = strcmp(opts.command, "get")==0 || strcmp(opts.command, "print")==0;
+	if (writes || reads) {
+		pool_lock(opts.file, writes);
+	}
 
 	if (strcmp(opts.command, "request")==0) {
 		if (!opts.name) {
