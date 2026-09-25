@@ -223,17 +223,24 @@ string pool_request(string filename, uint32_t begin, uint32_t end, string name) 
 	throw runtime_error( "Pool exhausted" );
 }
 
-void pool_release(string filename, string name) {
+bool in_range(uint32_t addr, uint32_t begin, uint32_t end) {
+	if (begin && end && end<begin) {
+		swap(begin,end);
+	}
+	return (!begin || addr>=begin) && (!end || addr<=end);
+}
+
+void pool_release(string filename, string name, uint32_t begin, uint32_t end) {
 	fstream file;
 	pool_open(filename,file);
 	uint32_t addr = pool_find(file,name.c_str());
-	if (addr) pool_write(file, 0, "\0");
+	if (addr && in_range(addr,begin,end)) pool_write(file, 0, "\0");
 }
 
-void pool_release(string filename, uint32_t addr) {
+void pool_release(string filename, uint32_t addr, uint32_t begin, uint32_t end) {
 	fstream file;
 	pool_open(filename,file);
-	if (!pool_find(file, addr).empty()) {
+	if (in_range(addr,begin,end) && !pool_find(file, addr).empty()) {
 		pool_write(file, 0, "\0");
 	}
 }
@@ -316,11 +323,11 @@ int main(int argc, char **argv) {
 			return 1;
 		}
 		if (opts.addr) {
-			pool_release(opts.file,opts.addr);
+			pool_release(opts.file,opts.addr,opts.begin,opts.end);
 			return 0;
 		}
 		if (opts.name) {
-			pool_release(opts.file,opts.name);
+			pool_release(opts.file,opts.name,opts.begin,opts.end);
 			return 0;
 		}
 	}
@@ -348,8 +355,8 @@ int main(int argc, char **argv) {
 	cout << "Usage:"<< endl
              << argv[0]<<" request --begin <address> --end <address> --name <name> --file <file>"<<endl
              << argv[0]<<" request --address <address> --file <file>"<<endl
-             << argv[0]<<" release --name <name> --file <file>"<<endl
-             << argv[0]<<" release --address <address> --file <file>"<<endl
+             << argv[0]<<" release --name <name> [--begin <address>] [--end <address>] --file <file>"<<endl
+             << argv[0]<<" release --address <address> [--begin <address>] [--end <address>] --file <file>"<<endl
              << argv[0]<<" get --name <name> --file <file>"<<endl
              << argv[0]<<" get --address <address> --file <file>"<<endl
              << argv[0]<<" print --file <file>"<<endl;
