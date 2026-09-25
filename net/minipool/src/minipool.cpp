@@ -184,7 +184,8 @@ string pool_find(string filename, uint32_t addr) {
 string pool_find(string filename, string name) {
 	fstream file;
 	pool_open(filename,file);
-	return ntoa(pool_find(file, name.c_str()));	
+	uint32_t addr = pool_find(file, name.c_str());
+	return addr ? ntoa(addr) : "";
 }
 
 string pool_request(string filename, string name, uint32_t addr) {
@@ -198,7 +199,7 @@ string pool_request(string filename, string name, uint32_t addr) {
 		pool_write(file, addr, name.c_str());
 		return ntoa(addr);
 	} else {
-		return ntoa(0);
+		throw runtime_error( "Address already allocated: " + ntoa(addr) );
 	}
 }
 
@@ -359,12 +360,10 @@ int run(int argc, char **argv) {
 			fprintf(stderr,"Use either --name or --addr\n");
 			return 1;
 		}
-		if (opts.addr) {
-			cout << pool_find(opts.file, opts.addr) << endl;
-			return 0;
-		}
-		if (opts.name) {
-			cout << pool_find(opts.file, opts.name) << endl;
+		if (opts.addr || opts.name) {
+			string result = opts.addr ? pool_find(opts.file, opts.addr) : pool_find(opts.file, string(opts.name));
+			if (result.empty()) return 1;
+			cout << result << endl;
 			return 0;
 		}
 	}
