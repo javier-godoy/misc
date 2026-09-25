@@ -297,6 +297,10 @@ int run(int argc, char **argv) {
 			break;
 
 		case LONG_OPT_NAME:
+			if (!*optarg) {
+				fprintf(stderr,"Name must not be empty\n");
+				return 1;
+			}
 			if (strlen(optarg)>MAX_NAME_LEN) {
 				fprintf(stderr,"Name too long: %s\n", optarg);
 				return 1;
