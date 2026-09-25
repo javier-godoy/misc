@@ -354,11 +354,11 @@ int main(int argc, char **argv) {
 
 	cout << "Usage:"<< endl
              << argv[0]<<" request --begin <address> --end <address> --name <name> --file <file>"<<endl
-             << argv[0]<<" request --address <address> --file <file>"<<endl
+             << argv[0]<<" request --addr <address> --file <file>"<<endl
              << argv[0]<<" release --name <name> [--begin <address>] [--end <address>] --file <file>"<<endl
-             << argv[0]<<" release --address <address> [--begin <address>] [--end <address>] --file <file>"<<endl
+             << argv[0]<<" release --addr <address> [--begin <address>] [--end <address>] --file <file>"<<endl
              << argv[0]<<" get --name <name> --file <file>"<<endl
-             << argv[0]<<" get --address <address> --file <file>"<<endl
+             << argv[0]<<" get --addr <address> --file <file>"<<endl
              << argv[0]<<" print --file <file>"<<endl;
 
 	return 1;
