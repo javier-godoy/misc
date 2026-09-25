@@ -317,6 +317,8 @@ int run(int argc, char **argv) {
 		case LONG_OPT_ADDR:  
 			opts.addr = aton(optarg);
 			break;
+		default:
+			return 1;
 		}
 	}
 	
