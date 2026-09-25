@@ -28,6 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 #include <getopt.h>
 #include <fcntl.h>
 #include <sys/file.h>
+#include <cerrno>
 using namespace std;
 
 #define MAX_NAME_LEN 124
@@ -90,11 +91,15 @@ void pool_open(string filename, fstream &file) {
 	}	
 }
 
-void pool_lock(string filename, bool exclusive) {
-	int fd = open(filename.c_str(), O_RDWR|O_CREAT, 0644);
+bool pool_lock(string filename, bool exclusive) {
+	int fd = open(filename.c_str(), exclusive ? O_RDWR|O_CREAT : O_RDONLY, 0644);
+	if (fd<0 && !exclusive && errno==ENOENT) {
+		return false;
+	}
 	if (fd<0 || flock(fd, exclusive?LOCK_EX:LOCK_SH)) {
 		throw runtime_error( "Error locking " + filename);
 	}
+	return true;
 }
 
 size_t pool_size(fstream &file) {
@@ -330,8 +335,9 @@ int run(int argc, char **argv) {
 
 	bool writes = strcmp(opts.command, "request")==0 || strcmp(opts.command, "release")==0;
 	bool reads = strcmp(opts.command, "get")==0 || strcmp(opts.command, "print")==0;
+	bool exists = true;
 	if (writes || reads) {
-		pool_lock(opts.file, writes);
+		exists = pool_lock(opts.file, writes);
 	}
 
 	if (strcmp(opts.command, "request")==0) {
@@ -372,6 +378,7 @@ int run(int argc, char **argv) {
 			return 1;
 		}
 		if (opts.addr || opts.name) {
+			if (!exists) return 1;
 			string result = opts.addr ? pool_find(opts.file, opts.addr) : pool_find(opts.file, string(opts.name));
 			if (result.empty()) return 1;
 			cout << result << endl;
@@ -380,7 +387,7 @@ int run(int argc, char **argv) {
 	}
 
 	if (strcmp(opts.command, "print")==0) {
-		pool_print(opts.file);
+		if (exists) pool_print(opts.file);
 		return 0;
 	}
 
